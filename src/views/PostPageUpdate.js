@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Container, Form, Image, Nav, Navbar } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
-import { useAuthState } from "react-firebase-hooks";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db, storage } from "../firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { signOut } from "firebase/auth";

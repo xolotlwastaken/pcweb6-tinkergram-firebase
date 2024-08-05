@@ -12,9 +12,9 @@ export default function PostPageHome() {
     const posts = query.docs.map((doc) => {
         // doc.data() = {caption: '', image: ''}
         return { id: doc.id, ...doc.data() };
-        // return {id: '', caption: '', name: ''}
+        // return {id: '', caption: '', image: ''}
     });
-    setPosts([posts]);
+    setPosts(posts);
   }
 
   useEffect(() => {
