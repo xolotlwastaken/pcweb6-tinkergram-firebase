@@ -10,9 +10,11 @@ export default function PostPageHome() {
    async function getAllPosts() {
     const query = await getDocs(collection(db, "posts"));
     const posts = query.docs.map((doc) => {
+        // doc.data() = {caption: '', image: ''}
         return { id: doc.id, ...doc.data() };
+        // return {id: '', caption: '', name: ''}
     });
-    setPosts([]);
+    setPosts([posts]);
   }
 
   useEffect(() => {
