@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { Container, Image, Nav, Navbar, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore";
-import { db } from "../firebase";
+import { auth, db } from "../firebase";
+import { signOut } from "firebase/auth";
 
 export default function PostPageHome() {
   const [posts, setPosts] = useState([]);
@@ -32,6 +33,7 @@ export default function PostPageHome() {
           <Navbar.Brand href="/">Tinkergram</Navbar.Brand>
           <Nav>
             <Nav.Link href="/add">New Post</Nav.Link>
+            <Nav.Link onClick={(e)=> signOut(auth)}>🚪</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
