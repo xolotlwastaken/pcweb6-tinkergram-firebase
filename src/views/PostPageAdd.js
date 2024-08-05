@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Container, Form, Nav, Navbar } from "react-bootstrap";
+import { Button, Container, Form, Nav, Image, Navbar } from "react-bootstrap";
 import { addDoc, collection } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks";
 import { useNavigate } from "react-router-dom";
@@ -11,6 +11,9 @@ export default function PostPageAdd() {
     const [user, loading] = useAuthState(auth);
     const [caption, setCaption] = useState("");
     const [image, setImage] = useState("");
+    const [previewImage, setPreviewImage] = useState(
+        "https://zca.sg/img/placeholder"
+    );
     const navigate = useNavigate();
 
     async function addPost() {
@@ -64,12 +67,26 @@ export default function PostPageAdd() {
             </Form.Text>
           </Form.Group> */}
 
+          <Image
+            src={previewImage}
+            style={{
+                objectFit: "cover",
+                width: "10rem",
+                height: "10rem",
+            }}
+          />
+
           {/* Add image by file */}
           <Form.Group className="mb-3" controlId="image">
             <Form.Label>Image</Form.Label>
             <Form.Control
                 type="file"
-                onChange={(e) => setImage(e.target.files[0])}
+                onChange={(e) => {
+                    const imageFile = e.target.files[0];
+                    const previewImage = URL.createObjectURL(imageFile);
+                    setImage(imageFile);
+                    setPreviewImage(previewImage);
+                }}
             />
           </Form.Group>
 
