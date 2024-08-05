@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import { Container, Image, Nav, Navbar, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore";
 import { auth, db } from "../firebase";
 import { signOut } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 export default function PostPageHome() {
   const [posts, setPosts] = useState([]);
+  const [user, loading] = useAuthState(auth);
+  const navigate = useNavigate();
 
    async function getAllPosts() {
     const query = await getDocs(collection(db, "posts"));
@@ -19,8 +22,10 @@ export default function PostPageHome() {
   }
 
   useEffect(() => {
+    if (loading) return;
+    if (!user) navigate("/login");
     getAllPosts();
-  }, []);
+  }, [navigate, user, loading]);
 
   const ImagesRow = () => {
     return posts.map((post, index) => <ImageSquare key={index} post={post} />);
