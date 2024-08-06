@@ -19,7 +19,7 @@ export default function PostPageUpdate() {
   const navigate = useNavigate();
 
   async function updatePost() {
-    const imageReference = ref(storage, `image/${image.name}`);
+    const imageReference = ref(storage, `images/${image.name}`);
     const response = await uploadBytes(imageReference, image);
     const imageUrl = await getDownloadURL(response.ref);
     await updateDoc(doc(db, "posts", id), { caption, image: imageUrl });
